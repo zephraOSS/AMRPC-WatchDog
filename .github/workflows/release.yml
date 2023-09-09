@@ -1,5 +1,8 @@
 run-name: Build and release to repository
 on:
+  push:
+    branches:
+      - master
   workflow_dispatch:
     inputs:
       tag:
