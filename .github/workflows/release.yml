@@ -1,0 +1,52 @@
+run-name: Build and release to repository
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Version tag (latest if none provided)'
+        required: false
+        default: latest
+        type: string
+jobs:
+  build:
+    name: Build WatchDog
+    runs-on: windows-2022
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.tag }}
+      - name: Restore NuGet dependencies
+        shell: powershell
+        run: 'C:\Program` Files\Microsoft` Visual` Studio\2022\Enterprise\MSBuild\Current\Bin\msbuild.exe -t:restore'
+      - name: Build binary
+        shell: powershell
+        run: 'C:\Program` Files\Microsoft` Visual` Studio\2022\Enterprise\MSBuild\Current\Bin\msbuild.exe AMRPC` WatchDog.sln /p:Configuration=Release /p:Platform=x64'
+      - name: Compress binary
+        shell: powershell
+        run: ' Compress-Archive .\bin\x64\Release\* watchdog.zip'
+      - uses: actions/upload-artifact@v2
+        with:
+          name: watchdog-build
+          path: watchdog.zip
+  create_release:
+    name: Create repository release
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.tag }}
+      - uses: actions/download-artifact@v2
+        with:
+          name: watchdog-build
+      - name: Create release
+        id: create_release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: 'watchdog.zip'
+          tag: ${{ inputs.tag }}
+          replacesArtifacts: true
+          allowUpdates: true\\
+          bodyFile: "install_instructions.md"
