@@ -6,43 +6,84 @@ namespace AMRPC_WatchDog_Desktop
 {
     public partial class Window : Form
     {
-        private const string StartupKey = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
         private const string StartupValue = "AMRPC WatchDog";
-        private readonly RegistryKey _regKey = Registry.CurrentUser.OpenSubKey(StartupKey, true);
+        private const string StartMinimizedValue = "StartMinimized";
+        private readonly RegistryKey _startupRegKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+        private static readonly RegistryKey AppDataRegKey = Application.UserAppDataRegistry;
+        private static readonly object StartsMinimized = AppDataRegKey.GetValue(StartMinimizedValue);
+        private readonly bool _startsMinimizedBool = (string) StartsMinimized == "True";
         private NotifyIcon _notifyIcon;
+        
         public Window(string appVersion)
         {
             InitializeComponent();
             SetupNotifyIcon(appVersion);
             SetupAutostartCheckbox();
-
-            var provider = new Provider();
+            SetupStartMinimized();
         }
 
         private void SetupNotifyIcon(string appVersion)
         {
             _notifyIcon.Text = $"AMRPC WatchDog {appVersion}";
-            _notifyIcon.Visible = false;
         }
         
         private void SetupAutostartCheckbox()
         {
-            var value = _regKey.GetValue(StartupValue);
+            var value = _startupRegKey.GetValue(StartupValue);
             _autoStartCheckbox.Checked = value != null;
+        }
+
+        private void SetupStartMinimized()
+        {
+            if (StartsMinimized == null)
+            {
+                AppDataRegKey.SetValue(StartMinimizedValue, false);
+            }
+            else
+            {
+                _startMinimizedCheckbox.Checked = _startsMinimizedBool;
+            }
         }
 
         private void _autoStartCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             if (((CheckBox) sender).Checked)
             {
-                _regKey.SetValue(StartupValue, Application.ExecutablePath);                
+                _startupRegKey.SetValue(StartupValue, Application.ExecutablePath);                
             }
             else
             {
-                _regKey.DeleteValue(StartupValue);
+                _startupRegKey.DeleteValue(StartupValue);
             }
         }
         
-        private void Window_Load(object sender, EventArgs e) { }
+        private void _startMinimizedCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+                AppDataRegKey.SetValue(StartMinimizedValue, ((CheckBox) sender).Checked);
+        }
+
+        private void Restore(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Normal;
+            ShowInTaskbar = true;
+            _notifyIcon.Visible = false;
+            Show();
+        }
+
+        private void Window_Load(object sender, EventArgs e)
+        {
+            if (_startsMinimizedBool)
+            {
+                ToTray();
+            }
+        }
+
+        private void ToTray()
+        {
+            WindowState = FormWindowState.Minimized;
+            _notifyIcon.Visible = true;
+            ShowInTaskbar = false;
+            Hide();
+        }
     }
 }
