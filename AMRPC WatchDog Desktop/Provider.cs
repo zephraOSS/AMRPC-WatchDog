@@ -65,12 +65,12 @@ namespace AMRPC_WatchDog_Desktop
             var playbackInfo = _ampSession.GetPlaybackInfo();
             var timelineProperties = _ampSession.GetTimelineProperties();
 
-            _payload.PlayingStatus = playbackInfo.PlaybackStatus.ToString().ToLower() == Payload.PlayingStatuses.Playing 
+            _payload.playerState = playbackInfo.PlaybackStatus.ToString().ToLower() == Payload.PlayingStatuses.Playing 
                     ? Payload.PlayingStatuses.Playing : Payload.PlayingStatuses.Paused;
 
             Double newEndTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() +
                                 timelineProperties.EndTime.TotalMilliseconds;
-            _payload.EndTime = newEndTime;
+            _payload.endTime = newEndTime;
         }
 
         private async void OnMediaPropertiesChanged(GlobalSystemMediaTransportControlsSession sender, MediaPropertiesChangedEventArgs args)
@@ -88,10 +88,10 @@ namespace AMRPC_WatchDog_Desktop
 
         private void ParseMediaProperties(GlobalSystemMediaTransportControlsSessionMediaProperties mediaProperties)
         {
-            _payload.Artist = mediaProperties.AlbumArtist.Split('-').First().Trim();
-            _payload.Album = mediaProperties.AlbumArtist.Split('—').Last().Trim();
+            _payload.artist = mediaProperties.AlbumArtist.Split('-').First().Trim();
+            _payload.album = mediaProperties.AlbumArtist.Split('—').Last().Trim();
             // payload.ThumbnailPath = mediaProperties.Thumbnail;
-            _payload.Title = mediaProperties.Title;
+            _payload.title = mediaProperties.Title;
             OnPlaybackInfoChanged(null, null);
         }
 
