@@ -19,7 +19,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          ref: ${{ ${GITHUB_REF#refs/*/} || inputs.tag }}
+          ref: ${{ github.ref.name || inputs.tag }}
       - name: Restore NuGet dependencies
         shell: powershell
         run: 'C:\Program` Files\Microsoft` Visual` Studio\2022\Enterprise\MSBuild\Current\Bin\msbuild.exe -t:restore'
@@ -41,7 +41,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          ref: ${{ ${GITHUB_REF#refs/*/} || inputs.tag }}
+          ref: ${{ github.ref.name || inputs.tag }}
       - uses: actions/download-artifact@v2
         with:
           name: watchdog-build
@@ -50,7 +50,7 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           artifacts: 'watchdog.zip'
-          tag: ${{ ${GITHUB_REF#refs/*/} || inputs.tag }}
+          tag: ${{ github.ref.name || inputs.tag }}
           replacesArtifacts: true
           allowUpdates: true
           bodyFile: "install_instructions.md"
