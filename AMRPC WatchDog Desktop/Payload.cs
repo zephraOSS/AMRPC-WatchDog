@@ -8,6 +8,7 @@ namespace AMRPC_WatchDog_Desktop
     {
         private string _playerStateValue;
         private double _endTimeValue = -1;
+        private double _duration = -1;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -44,6 +45,17 @@ namespace AMRPC_WatchDog_Desktop
                 NotifyPropertyChanged();
             }
         }
+        
+        public double duration
+        {
+            get => _duration;
+            set
+            {
+                if (value == _duration) return;
+                _duration = value;
+                NotifyPropertyChanged();
+            }
+        }
 
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
@@ -58,6 +70,7 @@ namespace AMRPC_WatchDog_Desktop
             thumbnailPath = null;
             playerState = PlayingStatuses.NotStarted;
             endTime = -1;
+            duration = -1;
         }
     }
 }

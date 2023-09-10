@@ -6,7 +6,8 @@ namespace AMRPC_WatchDog_Desktop
     internal static class Program
     {
 
-        private const string AppVersion = "v0.2.4";
+        private const string AppVersion = "v0.2.4"; 
+
         [STAThread]
         private static void Main()
         {
