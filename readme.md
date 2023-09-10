@@ -1,5 +1,5 @@
 ﻿# Apple Music RPC's WatchDog
-WatchDog is an service implementation that enables support for Apple Music Preview Windows app on [Apple-Music-RPC](https://github.com/zephraOSS/Apple-Music-RPC).
+WatchDog is a service implementation that enables support for Apple Music Preview Windows app on [Apple-Music-RPC](https://github.com/zephraOSS/Apple-Music-RPC).
 
 # Install
 Go to the [releases page](https://github.com/zephraOSS/AMRPC-WatchDog/releases/tag/latest) for install instructions.
