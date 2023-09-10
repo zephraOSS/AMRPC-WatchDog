@@ -11,5 +11,5 @@ Go to the [releases page](https://github.com/zephraOSS/AMRPC-WatchDog/releases/t
 - [x] Add "Autostart with system" option
 - [x] Add "Start minimized" option 
 - [x] Add "Quit" to context menu on notify icon
+- [x] Fix thumbnailPath null value
 - [ ] Fix triple websocket messages bug on song info changed 
-- [ ] Fix thumbnailPath null value 

@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Windows.Media.Control;
+using Windows.Storage.Streams;
+using Windows.UI.Xaml.Media.Imaging;
 
 
 namespace AMRPC_WatchDog_Desktop
@@ -86,12 +91,12 @@ namespace AMRPC_WatchDog_Desktop
             }
         }
 
-        private void ParseMediaProperties(GlobalSystemMediaTransportControlsSessionMediaProperties mediaProperties)
+        private async Task ParseMediaProperties(GlobalSystemMediaTransportControlsSessionMediaProperties mediaProperties)
         {
-            _payload.Artist = mediaProperties.AlbumArtist.Split('-').First().Trim();
+            _payload.Artist = mediaProperties.AlbumArtist.Split('—').First().Trim();
             _payload.Album = mediaProperties.AlbumArtist.Split('—').Last().Trim();
-            // payload.ThumbnailPath = mediaProperties.Thumbnail;
             _payload.Title = mediaProperties.Title;
+            _payload.ThumbnailPath = await LoadImage(mediaProperties);
             OnPlaybackInfoChanged(null, null);
         }
 
@@ -124,6 +129,19 @@ namespace AMRPC_WatchDog_Desktop
         private void OnSessionsChanged(object sender, SessionsChangedEventArgs e) 
         {
             UpdateAMPSession();
+        }
+
+        private static async Task<string> LoadImage(GlobalSystemMediaTransportControlsSessionMediaProperties mediaProperties)
+        {
+            var executableDirectory = Path.GetDirectoryName(Application.ExecutablePath);
+            Directory.CreateDirectory($"{executableDirectory}\\thumbnails");
+            
+            var img = Image.FromStream((await mediaProperties.Thumbnail.OpenReadAsync()).AsStream());
+            var fileName = $"{mediaProperties.Title.Replace(" ", "_")}_-_{mediaProperties.AlbumArtist.Split('—').First().Trim().Replace(" ", "_")}.jpg";
+            var savingPath = $"thumbnails\\{fileName}";
+            
+            img.Save(savingPath);
+            return $"{executableDirectory}\\{savingPath}";
         }
 
         private static async Task<GlobalSystemMediaTransportControlsSessionMediaProperties> GetMediaProperties(GlobalSystemMediaTransportControlsSession AMPSession) =>
