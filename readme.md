@@ -7,7 +7,7 @@ Go to the [releases page](https://github.com/zephraOSS/AMRPC-WatchDog/releases/t
 # TO-DO 
 - [x] Build the websocket service to export Windows playing info on a websocket
 - [x] Build the desktop version
-- [ ] Fix the fail to reconnect websocket when watchdog keeps running but connection is reset
-- [ ] Fix duplicated websocket messages on song info changed 
+- [x] Fix the fail to reconnect websocket when watchdog keeps running but connection is closed
+- [ ] Fix triplicated websocket messages on song info changed 
 - [ ] Add "Autostart with system" option
 - [ ] Add "Start minimized" option 
