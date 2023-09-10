@@ -18,12 +18,12 @@ namespace AMRPC_WatchDog_Desktop
             public const string Paused = "paused";
         }
 
-        public string Title { get; set; }
-        public string Album { get; set; }
-        public string Artist { get; set; }
-        public string ThumbnailPath { get; set; }
+        public string title { get; set; }
+        public string album { get; set; }
+        public string artist { get; set; }
+        public string thumbnailPath { get; set; }
 
-        public string PlayingStatus
+        public string playingStatus
         {
             get => _playingStatusValue;
             set
@@ -34,7 +34,7 @@ namespace AMRPC_WatchDog_Desktop
             }
         }
 
-        public double EndTime
+        public double endTime
         {
             get => _endTimeValue;
             set
@@ -52,12 +52,12 @@ namespace AMRPC_WatchDog_Desktop
 
         public void ResetToInitialState()
         {
-            Title = null;
-            Artist = null;
-            Album = null;
-            ThumbnailPath = null;
-            PlayingStatus = PlayingStatuses.NotStarted;
-            EndTime = -1;
+            title = null;
+            artist = null;
+            album = null;
+            thumbnailPath = null;
+            playingStatus = PlayingStatuses.NotStarted;
+            endTime = -1;
         }
     }
 }
