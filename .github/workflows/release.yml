@@ -1,8 +1,9 @@
 run-name: Build and release to repository
 on:
   push:
-    branches:
-      - master
+    tags:
+      - v**
+      - latest
   workflow_dispatch:
     inputs:
       tag:
@@ -18,7 +19,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          ref: ${{ inputs.tag }}
+          ref: ${{ ${GITHUB_REF#refs/*/} || inputs.tag }}
       - name: Restore NuGet dependencies
         shell: powershell
         run: 'C:\Program` Files\Microsoft` Visual` Studio\2022\Enterprise\MSBuild\Current\Bin\msbuild.exe -t:restore'
@@ -40,7 +41,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          ref: ${{ inputs.tag || 'latest' }}
+          ref: ${{ ${GITHUB_REF#refs/*/} || inputs.tag }}
       - uses: actions/download-artifact@v2
         with:
           name: watchdog-build
@@ -49,7 +50,7 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           artifacts: 'watchdog.zip'
-          tag: ${{ inputs.tag || 'latest' }}
+          tag: ${{ ${GITHUB_REF#refs/*/} || inputs.tag }}
           replacesArtifacts: true
           allowUpdates: true
           bodyFile: "install_instructions.md"
