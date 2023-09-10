@@ -43,7 +43,13 @@ namespace AMRPC_WatchDog_Desktop
             this._notifyIcon.BalloonTipText = "Running in background";
             this._notifyIcon.BalloonTipTitle = "AMRPC WatchDog";
             this._notifyIcon.Icon = ((System.Drawing.Icon) (resources.GetObject("_notifyIcon.Icon")));
-            this._notifyIcon.Click += new System.EventHandler(this.Window_Restore);
+            
+            this._notifyIcon.Click += new System.EventHandler((_, __) =>
+            {
+                Show();
+                WindowState = FormWindowState.Normal;
+                _notifyIcon.Visible = false;
+            });
             // 
             // _runningStatusLabel
             // 
@@ -81,7 +87,14 @@ namespace AMRPC_WatchDog_Desktop
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AMRPC WatchDog";
             this.Load += new System.EventHandler(this.Window_Load);
-            this.Resize += new System.EventHandler(this.Window_Resize);
+            this.Resize += new System.EventHandler((_, __) =>
+            {
+                if (WindowState == FormWindowState.Minimized)
+                {
+                    Hide();
+                    _notifyIcon.Visible = true;
+                }
+            });
             this.ResumeLayout(false);
         }
 

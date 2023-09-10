@@ -31,22 +31,6 @@ namespace AMRPC_WatchDog_Desktop
             _autoStartCheckbox.Checked = value != null;
         }
 
-        private void Window_Resize(object sender, EventArgs e)
-        {
-            if (WindowState == FormWindowState.Minimized)
-            {
-                Hide();
-                _notifyIcon.Visible = true;
-            }
-        }
-
-        private void Window_Restore(object sender, EventArgs e)
-        {
-            Show();
-            WindowState = FormWindowState.Normal;
-            _notifyIcon.Visible = false;
-        }
-
         private void _autoStartCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             if (((CheckBox) sender).Checked)
