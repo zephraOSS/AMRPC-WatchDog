@@ -65,7 +65,7 @@ namespace AMRPC_WatchDog_Desktop
             var playbackInfo = _ampSession.GetPlaybackInfo();
             var timelineProperties = _ampSession.GetTimelineProperties();
 
-            _payload.playingState = playbackInfo.PlaybackStatus.ToString().ToLower() == Payload.PlayingStatuses.Playing 
+            _payload.playerState = playbackInfo.PlaybackStatus.ToString().ToLower() == Payload.PlayingStatuses.Playing 
                     ? Payload.PlayingStatuses.Playing : Payload.PlayingStatuses.Paused;
 
             Double newEndTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() +

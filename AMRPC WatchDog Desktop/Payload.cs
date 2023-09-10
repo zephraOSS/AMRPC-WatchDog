@@ -6,7 +6,7 @@ namespace AMRPC_WatchDog_Desktop
 {
     public class Payload
     {
-        private string _playingStateValue;
+        private string _playerStateValue;
         private double _endTimeValue = -1;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -23,13 +23,13 @@ namespace AMRPC_WatchDog_Desktop
         public string artist { get; set; }
         public string thumbnailPath { get; set; }
 
-        public string playingState
+        public string playerState
         {
-            get => _playingStateValue;
+            get => _playerStateValue;
             set
             {
-                if (value == _playingStateValue) return;
-                _playingStateValue = value;
+                if (value == _playerStateValue) return;
+                _playerStateValue = value;
                 NotifyPropertyChanged();
             }
         }
@@ -56,7 +56,7 @@ namespace AMRPC_WatchDog_Desktop
             artist = null;
             album = null;
             thumbnailPath = null;
-            playingState = PlayingStatuses.NotStarted;
+            playerState = PlayingStatuses.NotStarted;
             endTime = -1;
         }
     }
