@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Windows.Forms;
-using Microsoft.Win32;
 
 namespace AMRPC_WatchDog_Desktop
 {
     internal static class Program
     {
 
-        private const string AppVersion = "v0.2.1"; 
+        private const string AppVersion = "v0.2.3"; 
         [STAThread]
         private static void Main()
         {
