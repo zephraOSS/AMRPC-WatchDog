@@ -12,6 +12,7 @@ namespace AMRPC_WatchDog_Desktop
         private static readonly RegistryKey AppDataRegKey = Application.UserAppDataRegistry;
         private static readonly object StartsMinimized = AppDataRegKey.GetValue(StartMinimizedValue);
         private readonly bool _startsMinimizedBool = (string) StartsMinimized == "True";
+        
         private NotifyIcon _notifyIcon;
         
         public Window(string appVersion)
@@ -25,6 +26,10 @@ namespace AMRPC_WatchDog_Desktop
         private void SetupNotifyIcon(string appVersion)
         {
             _notifyIcon.Text = $"AMRPC WatchDog {appVersion}";
+            _notifyIcon.ContextMenu = new ContextMenu(new MenuItem[]
+            {
+                new MenuItem("Quit", (_, __) => Application.Exit())
+            });
         }
         
         private void SetupAutostartCheckbox()
