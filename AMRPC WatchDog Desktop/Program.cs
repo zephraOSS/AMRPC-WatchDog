@@ -6,7 +6,7 @@ namespace AMRPC_WatchDog_Desktop
     internal static class Program
     {
 
-        private const string AppVersion = "v0.2.4"; 
+        private const string AppVersion = "v0.3.4"; 
 
         [STAThread]
         private static void Main()
@@ -16,9 +16,9 @@ namespace AMRPC_WatchDog_Desktop
             
             new Provider();
             
-            var window = new Window(AppVersion);
-            window.FormBorderStyle = FormBorderStyle.FixedSingle;
-            Application.Run(window);
+            // var window = new Window(AppVersion);
+            // window.FormBorderStyle = FormBorderStyle.FixedSingle;
+            Application.Run();
         }
     }
 }
