@@ -12,6 +12,12 @@ namespace AMRPC_WatchDog_Desktop
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public static class ResponseTypes
+        {
+            public const string Response = "res";
+            public const string Event = "event";
+        }
+        
         public static class PlayingStatuses
         {
             public const string Playing = "playing";
@@ -23,6 +29,7 @@ namespace AMRPC_WatchDog_Desktop
         public string album { get; set; }
         public string artist { get; set; }
         public string thumbnailPath { get; set; }
+        public string type { get; set; }
 
         public string playerState
         {
@@ -71,6 +78,7 @@ namespace AMRPC_WatchDog_Desktop
             playerState = PlayingStatuses.NotStarted;
             endTime = -1;
             duration = -1;
+            type = ResponseTypes.Event;
         }
     }
 }

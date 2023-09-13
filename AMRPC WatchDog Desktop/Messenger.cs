@@ -44,17 +44,25 @@ namespace AMRPC_WatchDog_Desktop
 
         protected override void OnMessage(MessageEventArgs e)
         {
-            Send(JsonConvert.SerializeObject(Payload));
+            AnswerAsType(Payload.ResponseTypes.Response);
         }
         
         public void OnPayloadChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            Send(JsonConvert.SerializeObject(Payload));
+            AnswerAsType(Payload.ResponseTypes.Event);
         }
 
         protected override void OnClose(CloseEventArgs e)
         {
             Messenger.Reconfigure();
+        }
+
+        private void AnswerAsType(string answerType)
+        {
+            var original = Payload.type;
+            Payload.type = answerType;
+            Send(JsonConvert.SerializeObject(Payload));
+            Payload.type = original;
         }
     }
 }
