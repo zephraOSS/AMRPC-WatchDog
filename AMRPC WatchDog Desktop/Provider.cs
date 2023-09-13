@@ -68,7 +68,8 @@ namespace AMRPC_WatchDog_Desktop
             _payload.playerState = playbackInfo.PlaybackStatus.ToString().ToLower() == Payload.PlayingStatuses.Playing 
                     ? Payload.PlayingStatuses.Playing : Payload.PlayingStatuses.Paused;
             
-            _payload.endTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() + timelineProperties.EndTime.TotalMilliseconds;
+            _payload.endTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() +
+                                (timelineProperties.EndTime.TotalMilliseconds - timelineProperties.Position.TotalMilliseconds);
             _payload.duration = timelineProperties.EndTime.TotalSeconds - timelineProperties.StartTime.TotalSeconds;
         }
 
