@@ -7,7 +7,7 @@
     <ProjectGuid>{DBA6E76D-E48D-41E4-B35E-B3A1E5A59CDD}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>AMRPC_WatchDog_Desktop</RootNamespace>
-    <AssemblyName>AMRPC WatchDog Desktop</AssemblyName>
+    <AssemblyName>watchdog</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
