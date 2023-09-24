@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AMRPC_WatchDog_Desktop.Properties
+namespace WatchDog.Properties
 {
 
 

@@ -1,9 +1,8 @@
 ﻿using Newtonsoft.Json;
-using WebSocketSharp;
 using WebSocketSharp.Server;
+using WebSocketSharp;
 
-
-namespace AMRPC_WatchDog_Desktop
+namespace WatchDog
 {
     internal class Messenger
     {
@@ -25,7 +24,7 @@ namespace AMRPC_WatchDog_Desktop
                 _server = null;
                 _sender = null;
             }
-            
+
             _sender = new Sender { Payload = _payload };
             _payload.PropertyChanged += _sender.OnPayloadChanged;
             _sender.Messenger = this;
@@ -33,10 +32,10 @@ namespace AMRPC_WatchDog_Desktop
             _server = new WebSocketServer(9632);
             _server.AddWebSocketService<Sender>("/watchdog", () => _sender);
             _server.Start();
-            
+
         }
     }
-    
+
     internal class Sender : WebSocketBehavior
     {
         public Payload Payload;
@@ -46,7 +45,7 @@ namespace AMRPC_WatchDog_Desktop
         {
             AnswerAsType(Payload.ResponseTypes.Response);
         }
-        
+
         public void OnPayloadChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             AnswerAsType(Payload.ResponseTypes.Event);

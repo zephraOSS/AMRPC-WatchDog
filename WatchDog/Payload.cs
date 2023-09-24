@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 
 
-namespace AMRPC_WatchDog_Desktop
+namespace WatchDog
 {
     public class Payload
     {
@@ -17,7 +17,7 @@ namespace AMRPC_WatchDog_Desktop
             public const string Response = "res";
             public const string Event = "event";
         }
-        
+
         public static class PlayingStatuses
         {
             public const string Playing = "playing";
@@ -52,7 +52,7 @@ namespace AMRPC_WatchDog_Desktop
                 NotifyPropertyChanged();
             }
         }
-        
+
         public double duration
         {
             get => _duration;

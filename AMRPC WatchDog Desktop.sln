@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMRPC WatchDog Desktop", "AMRPC WatchDog Desktop\AMRPC WatchDog Desktop.csproj", "{DBA6E76D-E48D-41E4-B35E-B3A1E5A59CDD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WatchDog", "WatchDog\WatchDog.csproj", "{A64E25E5-88AE-43BE-9F6D-C5A318ADA64F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DBA6E76D-E48D-41E4-B35E-B3A1E5A59CDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DBA6E76D-E48D-41E4-B35E-B3A1E5A59CDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DBA6E76D-E48D-41E4-B35E-B3A1E5A59CDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DBA6E76D-E48D-41E4-B35E-B3A1E5A59CDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A64E25E5-88AE-43BE-9F6D-C5A318ADA64F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A64E25E5-88AE-43BE-9F6D-C5A318ADA64F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A64E25E5-88AE-43BE-9F6D-C5A318ADA64F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A64E25E5-88AE-43BE-9F6D-C5A318ADA64F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,8 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.Media.Control;
 
-
-namespace AMRPC_WatchDog_Desktop
+namespace WatchDog
 {
     internal class Provider
     {
@@ -17,7 +16,7 @@ namespace AMRPC_WatchDog_Desktop
         private Messenger _messenger;
         private readonly Payload _payload;
 
-        public Provider() 
+        public Provider()
         {
             _payload = new Payload();
             _messenger = new Messenger(_payload);
@@ -29,7 +28,7 @@ namespace AMRPC_WatchDog_Desktop
         private async void UpdateSessionManager()
         {
             if (_sessionManager != null) return;
-            
+
             _sessionManager = await GlobalSystemMediaTransportControlsSessionManager.RequestAsync();
             _sessionManager.SessionsChanged += OnSessionsChanged;
             GetAMPSession();
@@ -43,7 +42,7 @@ namespace AMRPC_WatchDog_Desktop
 
         private void GetAMPSession()
         {
-            if (_sessionManager != null) 
+            if (_sessionManager != null)
             {
                 GlobalSystemMediaTransportControlsSession newSession = FindAMPSession();
                 SetAMPSession(newSession);
@@ -54,7 +53,8 @@ namespace AMRPC_WatchDog_Desktop
                 _ampSession.MediaPropertiesChanged += OnMediaPropertiesChanged;
                 _ampSession.PlaybackInfoChanged += OnPlaybackInfoChanged;
                 OnMediaPropertiesChanged(null, null);
-            } else
+            }
+            else
             {
                 _payload.ResetToInitialState();
             }
@@ -65,9 +65,9 @@ namespace AMRPC_WatchDog_Desktop
             var playbackInfo = _ampSession.GetPlaybackInfo();
             var timelineProperties = _ampSession.GetTimelineProperties();
 
-            _payload.playerState = playbackInfo.PlaybackStatus.ToString().ToLower() == Payload.PlayingStatuses.Playing 
+            _payload.playerState = playbackInfo.PlaybackStatus.ToString().ToLower() == Payload.PlayingStatuses.Playing
                     ? Payload.PlayingStatuses.Playing : Payload.PlayingStatuses.Paused;
-            
+
             _payload.endTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() +
                                 (timelineProperties.EndTime.TotalMilliseconds - timelineProperties.Position.TotalMilliseconds);
             _payload.duration = timelineProperties.EndTime.TotalSeconds - timelineProperties.StartTime.TotalSeconds;
@@ -100,7 +100,7 @@ namespace AMRPC_WatchDog_Desktop
             if (newSession == null && _ampSession != null)
             {
                 _ampSession = null;
-            } 
+            }
             else if (_ampSession == null)
             {
                 _ampSession = newSession;
@@ -121,7 +121,7 @@ namespace AMRPC_WatchDog_Desktop
             return null;
         }
 
-        private void OnSessionsChanged(object sender, SessionsChangedEventArgs e) 
+        private void OnSessionsChanged(object sender, SessionsChangedEventArgs e)
         {
             UpdateAMPSession();
         }
