@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WatchDog
@@ -9,7 +6,7 @@ namespace WatchDog
     internal static class Program
     {
 
-        private const string AppVersion = "v0.4.3";
+        private const string AppVersion = "v0.4.4";
 
         [STAThread]
         private static void Main()
